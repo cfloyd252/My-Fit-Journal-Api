@@ -1,5 +1,5 @@
 const express = require('express');
-const ActivityEntriesService = require('./activity-entries-service');
+const ActivityEntriesService = require('./activity-entires-service');
 const path = require('path');
 const { requireAuth } = require('../../middleware/jwt-auth');
 
@@ -8,7 +8,7 @@ const jsonBodyParser = express.json();
 
 activityEntriesRouter
   .route('/')
-  .all(requireAuth)
+  // .all(requireAuth)
   .get((req, res, next) => {
     
   })
