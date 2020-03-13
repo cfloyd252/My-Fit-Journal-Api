@@ -8,7 +8,12 @@ const jsonBodyParser = express.json();
 
 waterEntriesRouter
   .route('/')
-  .get()
-  .post();
+  .all(requireAuth)
+  .get((req, res, next) => {
+    
+  })
+  .post(jsonBodyParser, (req, res, next) => {
+
+  });
 
 module.exports = waterEntriesRouter;
