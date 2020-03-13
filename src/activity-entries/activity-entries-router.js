@@ -1,5 +1,5 @@
 const express = require('express');
-const ActivityEntriesService = require('./activity-entires-service');
+const ActivityEntriesService = require('./activity-entries-service');
 const path = require('path');
 const { requireAuth } = require('../../middleware/jwt-auth');
 
