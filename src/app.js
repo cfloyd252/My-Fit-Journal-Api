@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
+const waterEntriesRouter = require('./water-entries/water-entries-router');
+const weightEntriesRouter = require('./weight-entries/weight-entries-router');
+const activityEntriesRouter = require('./activityt-entries/activityt-entries-router');
+const authRouter = require('./auth/auth-router');
 
 const app = express();
 
@@ -18,6 +22,11 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
+
+app.use('/api/entries/water', waterEntriesRouter);
+app.use('/api/entries/weight', weightEntriesRouter);
+app.use('/api/entries/activity', activityEntriesRouter);
+app.use('/api/auth', authRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
