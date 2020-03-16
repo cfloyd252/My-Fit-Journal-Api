@@ -17,7 +17,15 @@ activityEntriesRouter
       .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
+    const { activity_name, start_log_time, end_log_time, calories_burned } = req.body;
+    const newEntry = { activity_name, start_log_time, end_log_time, calories_burned, user_id: 1 };
 
+    ActivityEntriesService.insertEntry(req.app.get('db'), newEntry)
+      .then(entry => {
+        return res
+          .status(201)
+          .json(entry)
+      })
   });
 
 module.exports = activityEntriesRouter;

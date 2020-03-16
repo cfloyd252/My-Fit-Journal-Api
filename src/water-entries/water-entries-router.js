@@ -17,7 +17,15 @@ waterEntriesRouter
       .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
+    const { quanity, unit_of_measurement, log_time } = req.body;
+    const newEntry = { quanity, unit_of_measurement, log_time, user_id: 1 };
 
+    WaterEntriesService.insertEntry(req.app.get('db'), newEntry)
+      .then(entry => {
+        return res
+          .status(201)
+          .json(entry)
+      })
   });
 
 module.exports = waterEntriesRouter;
