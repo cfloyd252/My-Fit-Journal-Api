@@ -10,7 +10,11 @@ waterEntriesRouter
   .route('/')
   // .all(requireAuth)
   .get((req, res, next) => {
-    
+    WaterEntriesService.getEntries(req.app.get('db'))
+      .then(water_entries => {
+        res.json(water_entries)
+      })
+      .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
 
