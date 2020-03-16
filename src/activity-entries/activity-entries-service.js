@@ -11,6 +11,10 @@ const ActivityEntriesService = {
     return db
       .insert(newEntry)
       .into('activity_entries')
+      .returning('*')
+      .then(rows => {
+        return rows[0]
+      })
   },
 
   serializeEntry(entry) {

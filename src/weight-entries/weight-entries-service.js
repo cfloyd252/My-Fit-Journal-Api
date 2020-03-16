@@ -10,7 +10,10 @@ const WeightEntriesService = {
   insertEntry(db, newEntry) {
     return db
       .insert(newEntry)
-      .into('weight_entries')
+      .into('weight_entries') .returning('*')
+      .then(rows => {
+        return rows[0]
+      })
   },
 
   serializeEntry(entry) {

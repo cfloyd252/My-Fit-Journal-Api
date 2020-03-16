@@ -11,6 +11,10 @@ const WaterEntriesService = {
     return db
       .insert(newEntry)
       .into('water_entries')
+      .returning('*')
+      .then(rows => {
+        return rows[0]
+      })
   },
 
   serializeEntry(entry) {

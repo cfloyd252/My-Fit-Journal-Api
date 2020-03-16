@@ -17,7 +17,15 @@ weightEntriesRouter
       .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
+    const { quanity, unitOfMeasurement, log_time } = req.body;
+    const newEntry = { quanity, unitofmeasurement, log_time, user_id: 1 };
 
+    WeightEntriesService.insertEntry(req.app.get('db'), newEntry)
+      .then(entry => {
+        return res
+          .status(201)
+          .json(entry)
+      })
   });
 
 module.exports = weightEntriesRouter;
