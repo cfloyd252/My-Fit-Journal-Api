@@ -8,7 +8,7 @@ const jsonBodyParser = express.json();
 
 weightEntriesRouter
   .route('/')
-  // .all(requireAuth)
+  .all(requireAuth)
   .get((req, res, next) => {
     WeightEntriesService.getEntries(req.app.get('db'))
       .then(weight_entries => {

@@ -8,7 +8,7 @@ const jsonBodyParser = express.json();
 
 activityEntriesRouter
   .route('/')
-  // .all(requireAuth)
+  .all(requireAuth)
   .get((req, res, next) => {
     ActivityEntriesService.getEntries(req.app.get('db'))
       .then(activity_entries => {
