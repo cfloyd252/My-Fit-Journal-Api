@@ -10,7 +10,11 @@ activityEntriesRouter
   .route('/')
   // .all(requireAuth)
   .get((req, res, next) => {
-    
+    ActivityEntriesService.getEntries(req.app.get('db'))
+      .then(activity_entries => {
+        res.json(activity_entries)
+      })
+      .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
 
