@@ -15,4 +15,9 @@ VALUES
   (8.2, 'fl oz', 1),
   (16, 'fl oz', 1);
 
+INSERT INTO weight_entries (quanity, unitOfMeasurement, user_id)
+VALUES
+  (115, 'lbs', 1),
+  (220, 'lbs', 1);
+
 COMMIT;

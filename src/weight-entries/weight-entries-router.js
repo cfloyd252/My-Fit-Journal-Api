@@ -10,7 +10,11 @@ weightEntriesRouter
   .route('/')
   // .all(requireAuth)
   .get((req, res, next) => {
-    res.json('good to go')
+    WeightEntriesService.getEntries(req.app.get('db'))
+      .then(weight_entries => {
+        res.json(weight_entries)
+      })
+      .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
 
