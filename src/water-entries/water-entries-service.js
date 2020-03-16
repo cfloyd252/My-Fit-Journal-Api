@@ -9,14 +9,12 @@ const WaterEntriesService = {
 
   insertEntry(db, newEntry) {
     return db
-    .insert(newEntry)
-    .into('water_entries')
+      .insert(newEntry)
+      .into('water_entries')
   },
 
   serializeEntry(entry) {
-    return {
-      id: 
-    }
+  
   }
 }
 
