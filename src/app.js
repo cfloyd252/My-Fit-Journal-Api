@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.use('/api/entries/water', waterEntriesRouter);
 app.use('/api/entries/weight', weightEntriesRouter);
 app.use('/api/entries/activities', activityEntriesRouter);
-// app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;

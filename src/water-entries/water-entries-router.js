@@ -18,7 +18,9 @@ waterEntriesRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { quanity, unit_of_measurement, log_time } = req.body;
-    const newEntry = { quanity, unit_of_measurement, log_time, user_id: 1 };
+    const newEntry = { quanity, unit_of_measurement, log_time };
+
+    newEntry.user_id = req.user.id
 
     WaterEntriesService.insertEntry(req.app.get('db'), newEntry)
       .then(entry => {

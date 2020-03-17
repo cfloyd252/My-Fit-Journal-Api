@@ -18,8 +18,10 @@ activityEntriesRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { activity_name, start_log_time, end_log_time, calories_burned } = req.body;
-    const newEntry = { activity_name, start_log_time, end_log_time, calories_burned, user_id: 1 };
+    const newEntry = { activity_name, start_log_time, end_log_time, calories_burned};
 
+    newEntry.user_id = req.user.id
+    
     ActivityEntriesService.insertEntry(req.app.get('db'), newEntry)
       .then(entry => {
         return res
