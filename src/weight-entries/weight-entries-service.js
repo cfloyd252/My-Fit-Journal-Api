@@ -5,6 +5,7 @@ const WeightEntriesService = {
     return db
       .from('weight_entries')
       .select('*')
+      .orderBy('log_time', 'desc')
   },
 
   insertEntry(db, newEntry) {

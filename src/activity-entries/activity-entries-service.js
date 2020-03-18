@@ -5,6 +5,7 @@ const ActivityEntriesService = {
     return db
       .from('activity_entries')
       .select('*')
+      .orderBy('start_log_time', 'desc')
   },
 
   insertEntry(db, newEntry) {

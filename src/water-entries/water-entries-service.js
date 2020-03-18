@@ -5,6 +5,7 @@ const WaterEntriesService = {
     return db
       .from('water_entries')
       .select('*')
+      .orderBy('log_time', 'desc')
   },
 
   insertEntry(db, newEntry) {
