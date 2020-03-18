@@ -6,6 +6,14 @@ const { requireAuth } = require('../../middleware/jwt-auth');
 const weightEntriesRouter = express.Router();
 const jsonBodyParser = express.json();
 
+const serializeEntry = entry => ({
+  id: entry.id,
+  // log_time: 
+  quanity: entry.quanity,
+  unit_of_measurement: entry.unit_of_measurement,
+  user_id: entry.user_id,
+})
+
 weightEntriesRouter
   .route('/')
   .all(requireAuth)

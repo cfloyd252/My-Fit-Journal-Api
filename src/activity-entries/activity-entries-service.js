@@ -16,10 +16,6 @@ const ActivityEntriesService = {
         return rows[0]
       })
   },
-
-  serializeEntry(entry) {
-  
-  }
 }
 
 module.exports = ActivityEntriesService
