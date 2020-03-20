@@ -6,6 +6,14 @@ const { requireAuth } = require('../../middleware/jwt-auth');
 const waterEntriesRouter = express.Router();
 const jsonBodyParser = express.json();
 
+const serializeEntry = entry => ({
+  id: entry.id,
+  log_time: entry.log_time,
+  quanity: entry.quanity,
+  unit_of_measurement: entry.unit_of_measurement,
+  user_id: entry.user_id,
+})
+
 waterEntriesRouter
   .route('/')
   .all(requireAuth)
@@ -26,8 +34,9 @@ waterEntriesRouter
       .then(entry => {
         return res
           .status(201)
-          .json(entry)
+          .json(serializeEntry(entry))
       })
+      .catch(next)
   });
 
 module.exports = waterEntriesRouter;
