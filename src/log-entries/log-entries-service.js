@@ -3,6 +3,9 @@ const LogEntriesService = {
     return db
       .from('log_entries AS lg')
       .select(
+        'lg.log_id',
+        'lg.user_id',
+        'lg.log_type',
         'lg.quanity',
         'lg.unit_of_measurement',
         'lg.start_time'
@@ -15,6 +18,9 @@ const LogEntriesService = {
     return db
       .from('log_entries AS lg')
       .select(
+        'lg.log_id',
+        'lg.user_id',
+        'lg.log_type',
         'lg.quanity',
         'lg.unit_of_measurement',
         'lg.start_time'
@@ -27,6 +33,9 @@ const LogEntriesService = {
     return db
       .from('log_entries AS lg')
       .select(
+        'lg.log_id',
+        'lg.user_id',
+        'lg.log_type',
         'lg.log_title',
         'lg.start_time',
         'lg.end_time',

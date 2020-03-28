@@ -11,7 +11,7 @@ CREATE TABLE log_entries (
   log_type types NOT NULL,
   log_title TEXT,
   quanity DECIMAL,
-  unit_of_meassurement TEXT,
+  unit_of_measurement TEXT,
   start_time TIMESTAMPTZ,
   end_time TIMESTAMPTZ,
   calories DECIMAL
