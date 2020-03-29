@@ -11,7 +11,7 @@ const LogEntriesService = {
         'lg.start_time'
       )
       .where({ log_type: 'water' })
-      .orderBy('start_time', 'desc')
+      .orderBy('start_time', 'desc');
   },
 
   getWeightEntries(db) {
@@ -26,7 +26,7 @@ const LogEntriesService = {
         'lg.start_time'
       )
       .where({ log_type: 'weight' })
-      .orderBy('start_time', 'desc')
+      .orderBy('start_time', 'desc');
   },
 
   getActivityEntries(db) {
@@ -42,7 +42,7 @@ const LogEntriesService = {
         'lg.calories'
       )
       .where({ log_type: 'activity' })
-      .orderBy('start_time', 'desc')
+      .orderBy('start_time', 'desc');
   },
 
   insertEntry(db, newEntry) {
@@ -51,9 +51,9 @@ const LogEntriesService = {
       .into('log_entries')
       .returning('*')
       .then(rows => {
-        return rows[0]
-      })
+        return rows[0];
+      });
   },
-}
+};
 
-module.exports = LogEntriesService
+module.exports = LogEntriesService;

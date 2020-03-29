@@ -1,8 +1,7 @@
 const express = require('express');
 const LogEntriesService = require('./log-entries-service');
-const path = require('path');
 const { requireAuth } = require('../../middleware/jwt-auth');
-const xss= require('xss')
+const xss= require('xss');
 
 const logEntriesRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -17,7 +16,7 @@ const serializeEntry = entry => ({
   start_time: entry.start_time,
   end_time: entry.end_time,
   calories: entry.calories
-})
+});
 
 
 logEntriesRouter
@@ -26,9 +25,9 @@ logEntriesRouter
   .get((req, res, next) => {
     LogEntriesService.getWaterEntries(req.app.get('db'))
       .then(water_entries => {
-        res.json(water_entries)
+        res.json(water_entries);
       })
-      .catch(next)
+      .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { quanity, unit_of_measurement, start_time } = req.body;
@@ -40,10 +39,10 @@ logEntriesRouter
       .then(entry => {
         return res
           .status(201)
-          .json(serializeEntry(entry))
+          .json(serializeEntry(entry));
       })
-      .catch(next)
-  })
+      .catch(next);
+  });
 
 logEntriesRouter
   .route('/weight')
@@ -51,9 +50,9 @@ logEntriesRouter
   .get((req, res, next) => {
     LogEntriesService.getWeightEntries(req.app.get('db'))
       .then(weight_entries => {
-        res.json(weight_entries)
+        res.json(weight_entries);
       })
-      .catch(next)
+      .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { quanity, unit_of_measurement, start_time } = req.body;
@@ -65,10 +64,10 @@ logEntriesRouter
       .then(entry => {
         return res
           .status(201)
-          .json(serializeEntry(entry))
+          .json(serializeEntry(entry));
       })
-      .catch(next)
-  })
+      .catch(next);
+  });
 
 logEntriesRouter
   .route('/activity')
@@ -76,9 +75,9 @@ logEntriesRouter
   .get((req, res, next) => {
     LogEntriesService.getActivityEntries(req.app.get('db'))
       .then(activity_entries => {
-        res.json(activity_entries)
+        res.json(activity_entries);
       })
-      .catch(next)
+      .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { log_title , start_time, end_time, calories } = req.body;
@@ -90,9 +89,9 @@ logEntriesRouter
       .then(entry => {
         return res
           .status(201)
-          .json(serializeEntry(entry))
+          .json(serializeEntry(entry));
       })
-      .catch(next)
+      .catch(next);
   });
 
 module.exports = logEntriesRouter;
