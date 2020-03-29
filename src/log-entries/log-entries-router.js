@@ -72,7 +72,7 @@ logEntriesRouter
 
 logEntriesRouter
   .route('/activity')
-  .all(requireAuth)
+  // .all(requireAuth)
   .get((req, res, next) => {
     LogEntriesService.getActivityEntries(req.app.get('db'))
       .then(activity_entries => {
@@ -81,8 +81,8 @@ logEntriesRouter
       .catch(next)
   })
   .post(jsonBodyParser, (req, res, next) => {
-    const { quanity, unit_of_measurement, start_time } = req.body;
-    const newEntry = { quanity, unit_of_measurement, start_time, user_id: 1, log_type: 'activity' };
+    const { log_title , start_time, end_time, calories } = req.body;
+    const newEntry = { log_title , start_time, end_time, calories, user_id: 1, log_type: 'activity' };
 
     // newEntry.user_id = req.user.id
 
