@@ -6,92 +6,67 @@ const xss= require('xss');
 const logEntriesRouter = express.Router();
 const jsonBodyParser = express.json();
 
-const serializeEntry = entry => ({
-  log_id: entry.log_id,
-  user_id: entry.user_id,
-  log_type: entry.log_type,
-  log_title: xss(entry.log_title),
-  quanity: entry.quanity,
-  unit_of_measurement: xss(entry.unit_of_measurement),
-  start_time: entry.start_time,
-  end_time: entry.end_time,
-  calories: entry.calories
-});
+const serializeEntry = entry => {
+  const serializedEntry = {
+    log_id: entry.log_id,
+    user_id: entry.user_id,
+    log_type: entry.log_type,
+    quanity: entry.quanity,
+    start_time: entry.start_time,
+    end_time: entry.end_time
+  }
+  
+  if(entry.exercise_type) {
+    serializedEntry.exercise_type = xss(entry.exercise_type)
+  } else if(entry.unit_of_measurement) {
+    serializedEntry.unit_of_measurement = xss(entry.unit_of_measurement)
+  } else if (entry.calories) {
+    serializedEntry.calories = Number(entry.calories)
+  }
 
+  return serializedEntry
+};
 
 logEntriesRouter
-  .route('/water')
+  .route('/')
   .all(requireAuth)
-  .get((req, res, next) => {
-    LogEntriesService.getWaterEntries(req.app.get('db'))
-      .then(water_entries => {
-        res.json(water_entries);
+  .get(async(req, res, next) => {
+    try {
+      const waterEntries = await LogEntriesService.getWaterEntries(
+        req.app.get('db'),
+        req.user.id
+      )
+  
+      const weightEntries = await LogEntriesService.getWeightEntries(
+        req.app.get('db'),
+        req.user.id
+      )
+  
+      const exerciseEntries = await LogEntriesService.getExerciseEntries(
+        req.app.get('db'),
+        req.user.id
+      )
+
+      res.json({
+        water: waterEntries.map(serializeEntry),
+        weight: weightEntries.map(serializeEntry),
+        exercise: exerciseEntries.map(serializeEntry),
       })
-      .catch(next);
+    } catch(error) {
+      next(error)
+    }
   })
-  .post(jsonBodyParser, (req, res, next) => {
-    const { quanity, unit_of_measurement, start_time } = req.body;
-    const newEntry = { quanity, unit_of_measurement, start_time, user_id: 1, log_type: 'water' };
-
-    // newEntry.user_id = req.user.id
-
-    LogEntriesService.insertEntry(req.app.get('db'), newEntry)
-      .then(entry => {
-        return res
-          .status(201)
-          .json(serializeEntry(entry));
-      })
-      .catch(next);
-  });
-
-logEntriesRouter
-  .route('/weight')
-  .all(requireAuth)
-  .get((req, res, next) => {
-    LogEntriesService.getWeightEntries(req.app.get('db'))
-      .then(weight_entries => {
-        res.json(weight_entries);
-      })
-      .catch(next);
-  })
-  .post(jsonBodyParser, (req, res, next) => {
-    const { quanity, unit_of_measurement, start_time } = req.body;
-    const newEntry = { quanity, unit_of_measurement, start_time, user_id: 1, log_type: 'weight' };
-
-    // newEntry.user_id = req.user.id
-
-    LogEntriesService.insertEntry(req.app.get('db'), newEntry)
-      .then(entry => {
-        return res
-          .status(201)
-          .json(serializeEntry(entry));
-      })
-      .catch(next);
-  });
-
-logEntriesRouter
-  .route('/activity')
-  // .all(requireAuth)
-  .get((req, res, next) => {
-    LogEntriesService.getActivityEntries(req.app.get('db'))
-      .then(activity_entries => {
-        res.json(activity_entries);
-      })
-      .catch(next);
-  })
-  .post(jsonBodyParser, (req, res, next) => {
-    const { log_title , start_time, end_time, calories } = req.body;
-    const newEntry = { log_title , start_time, end_time, calories, user_id: 1, log_type: 'activity' };
-
-    // newEntry.user_id = req.user.id
-
-    LogEntriesService.insertEntry(req.app.get('db'), newEntry)
-      .then(entry => {
-        return res
-          .status(201)
-          .json(serializeEntry(entry));
-      })
-      .catch(next);
+  .post(jsonBodyParser, async (req, res, next) => {
+    try{
+      const { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, log_type } = req.body;
+      const user_id = req.user.id
+      const newEntry = { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
+      
+      const newLog = await LogEntriesService.insertEntry(req.app.get('db'), newEntry, log_type)
+      res.status(201).json(serializeEntry(newLog))
+    } catch(error) {
+      next(error)
+    }
   });
 
 module.exports = logEntriesRouter;
