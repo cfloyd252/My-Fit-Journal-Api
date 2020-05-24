@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS log_entries;
+DROP TYPE IF EXISTS types;

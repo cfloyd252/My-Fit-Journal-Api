@@ -35,20 +35,20 @@ const LogEntriesService = {
       .orderBy('start_time', 'desc');
   },
 
-  getActivityEntries(db, userId) {
+  getExerciseEntries(db, userId) {
     return db
       .from('log_entries AS lg')
       .select(
         'lg.log_id',
         'lg.user_id',
         'lg.log_type',
-        'lg.log_title',
+        'lg.exercise_type',
         'lg.start_time',
         'lg.end_time',
         'lg.calories'
       )
       .where({
-        log_type: 'activity',
+        log_type: 'exercise',
         user_id: userId
       })
       .orderBy('start_time', 'desc');
@@ -72,7 +72,7 @@ const LogEntriesService = {
         .then(rows => {
           return rows[0];
         });
-    case 'activity':
+    case 'exercise':
       return db
         .insert(newEntry)
         .into('log_entries')
@@ -80,7 +80,7 @@ const LogEntriesService = {
           'log_id',
           'user_id',
           'log_type',
-          'log_title',
+          'exercise_type',
           'start_time',
           'end_time',
           'calories'

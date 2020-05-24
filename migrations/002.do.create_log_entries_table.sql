@@ -1,7 +1,7 @@
 CREATE TYPE types AS ENUM (
   'water',
   'weight',
-  'activity'
+  'exercise'
 );
 
 CREATE TABLE log_entries (
@@ -9,7 +9,7 @@ CREATE TABLE log_entries (
   user_id INTEGER
     REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   log_type types NOT NULL,
-  log_title TEXT,
+  exercise_type TEXT,
   quanity DECIMAL,
   unit_of_measurement TEXT,
   start_time TIMESTAMPTZ NOT NULL,

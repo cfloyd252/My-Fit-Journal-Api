@@ -16,8 +16,8 @@ const serializeEntry = entry => {
     end_time: entry.end_time
   }
   
-  if(entry.log_title) {
-    serializedEntry.log_title = xss(entry.log_title)
+  if(entry.exercise_type) {
+    serializedEntry.exercise_type = xss(entry.exercise_type)
   } else if(entry.unit_of_measurement) {
     serializedEntry.unit_of_measurement = xss(entry.unit_of_measurement)
   } else if (entry.calories) {
@@ -42,7 +42,7 @@ logEntriesRouter
         req.user.id
       )
   
-      const activityEntries = await LogEntriesService.getActivityEntries(
+      const exerciseEntries = await LogEntriesService.getExerciseEntries(
         req.app.get('db'),
         req.user.id
       )
@@ -50,7 +50,7 @@ logEntriesRouter
       res.json({
         water: waterEntries.map(serializeEntry),
         weight: weightEntries.map(serializeEntry),
-        activity: activityEntries.map(serializeEntry),
+        exercise: exerciseEntries.map(serializeEntry),
       })
     } catch(error) {
       next(error)
@@ -58,9 +58,9 @@ logEntriesRouter
   })
   .post(jsonBodyParser, async (req, res, next) => {
     try{
-      const { log_title, quanity, unit_of_measurement, start_time, end_time, calories, log_type } = req.body;
+      const { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, log_type } = req.body;
       const user_id = req.user.id
-      const newEntry = { log_title, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
+      const newEntry = { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
       
       const newLog = await LogEntriesService.insertEntry(req.app.get('db'), newEntry, log_type)
       res.status(201).json(serializeEntry(newLog))
