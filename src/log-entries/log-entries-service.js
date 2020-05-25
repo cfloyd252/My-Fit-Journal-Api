@@ -42,7 +42,7 @@ const LogEntriesService = {
         'lg.log_id',
         'lg.user_id',
         'lg.log_type',
-        'lg.exercise_type',
+        'lg.exercise_name',
         'lg.start_time',
         'lg.end_time',
         'lg.calories'
@@ -80,7 +80,7 @@ const LogEntriesService = {
           'log_id',
           'user_id',
           'log_type',
-          'exercise_type',
+          'exercise_name',
           'start_time',
           'end_time',
           'calories'

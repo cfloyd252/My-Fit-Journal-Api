@@ -11,7 +11,7 @@ VALUES
   ('Jane','fit.jane', '$2a$12$PIq45ASIUSfSgasvBI2mfewJw8.GB8je6rbBfO02hWAhFwFPO2QiW'),
   ('Chris','fit.chris', '$2a$12$PIq45ASIUSfSgasvBI2mfewJw8.GB8je6rbBfO02hWAhFwFPO2QiW');
 
-INSERT INTO log_entries (user_id, log_type, exercise_type, quanity, unit_of_measurement, start_time, end_time, calories)
+INSERT INTO log_entries (user_id, log_type, exercise_name, quanity, unit_of_measurement, start_time, end_time, calories)
 VALUES
   (1, 'water', NULL, 5, 'ml', '2020-02-10T09:30:54Z', NULL, NULL),
   (1, 'weight', NULL, 150, 'lbs', '2020-02-10T09:30:54Z', NULL, NULL),

@@ -16,8 +16,8 @@ const serializeEntry = entry => {
     end_time: entry.end_time
   }
   
-  if(entry.exercise_type) {
-    serializedEntry.exercise_type = xss(entry.exercise_type)
+  if(entry.exercise_name) {
+    serializedEntry.exercise_name = xss(entry.exercise_name)
   } else if(entry.unit_of_measurement) {
     serializedEntry.unit_of_measurement = xss(entry.unit_of_measurement)
   } else if (entry.calories) {
@@ -58,12 +58,12 @@ logEntriesRouter
   })
   .post(jsonBodyParser, async (req, res, next) => {
     try{
-      const { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, log_type } = req.body;
+      const { exercise_name, quanity, unit_of_measurement, start_time, end_time, calories, log_type } = req.body;
       const user_id = req.user.id
-      const newEntry = { exercise_type, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
+      const newEntry = { exercise_name, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
       
       const newLog = await LogEntriesService.insertEntry(req.app.get('db'), newEntry, log_type)
-      res.status(201).json(serializeEntry(newLog))
+      res.status(201).json(newLog)
     } catch(error) {
       next(error)
     }
