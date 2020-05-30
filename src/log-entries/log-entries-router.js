@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const LogEntriesService = require('./log-entries-service');
 const { requireAuth } = require('../../middleware/jwt-auth');
@@ -63,7 +65,7 @@ logEntriesRouter
       const newEntry = { exercise_name, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
       
       const newLog = await LogEntriesService.insertEntry(req.app.get('db'), newEntry, log_type)
-      res.status(201).json(newLog)
+      res.status(201).json(serializeEntry(newLog))
     } catch(error) {
       next(error)
     }

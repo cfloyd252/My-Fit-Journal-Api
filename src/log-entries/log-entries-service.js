@@ -1,3 +1,5 @@
+'use strict';
+
 const LogEntriesService = {
   getWaterEntries(db, userId) {
     return db

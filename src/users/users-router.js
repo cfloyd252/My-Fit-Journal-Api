@@ -1,6 +1,8 @@
+'use strict';
+
 const express = require('express')
 const UsersService = require('./users-service')
-const { requireAuth } = require('../middleware/jwt-auth')
+const { requireAuth } = require('../../middleware/jwt-auth');
 const path = require('path')
 const xss = require('xss')
 
@@ -14,6 +16,19 @@ const serializeUser = user => ({
 })
 
   usersRouter
+  .get('/', requireAuth, async (req, res, next) => {
+    try {
+      const user = await UsersService.getById(
+        req.app.get('db'),
+        req.user.id
+      )
+      return res
+          .status(200)
+          .json(serializeUser(user))
+    } catch(error){
+      next(error)
+    }
+  })
   .post('/', jsonBodyParser, async (req, res, next) => {
     const { password, username, name } = req.body
     let usernames = await UsersService.getAllUsersUsernames(req.app.get('db'))
@@ -82,15 +97,6 @@ const serializeUser = user => ({
     } catch(error) {
       next(error)
     }
-  })
-
-usersRouter
-  .route('/:user_id')
-  .get(requireAuth, async (req, res, next) => {
-      const user = await UsersService.getById(req.app.get('db'), req.params.user_id)
-          return res
-              .status(200)
-              .json(serializeUser(user))
   })
 
 module.exports = usersRouter;

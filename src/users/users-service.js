@@ -1,3 +1,5 @@
+'use strict';
+
 const bcrypt = require('bcryptjs');
 
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
@@ -9,26 +11,11 @@ const UsersService = {
       .select('user_name');
   },
 
-  getUsersByZip(db, zip) {
-    return db 
-      .from('users as user')
-      .where('user.zip', zip)
-      .select('id',
-        'name',
-        'user_name',
-        'zip',
-        'img_src',
-        'img_alt');
-  },
-
   getById(db, id) {
     return db
       .select('id',
         'name',
-        'user_name',
-        'zip',
-        'img_src',
-        'img_alt')
+        'user_name')
       .from('users as user')
       .where('user.id', id)
       .first();
@@ -69,14 +56,6 @@ const UsersService = {
 
   hashPassword(password) {
     return bcrypt.hash(password, 12);
-  },
-
-  serializeUser(user) {
-    return {
-      id: user.id,
-      name: user.name,
-      username: user.username,
-    };
   },
 };
 
