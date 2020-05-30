@@ -17,7 +17,7 @@ be able to log meals and create a list of custom exercise names.
 ## Endpoints
 
 Users Endpoint ('/users'): Contains methods for getting and posting users.  
-Entries Endpoint ('/posts'): Contains methods for getting, posting, and deleting log entries.   
+Entries Endpoint ('/entries'): Contains methods for getting, posting, and deleting log entries.   
 
 ## Scripts
 
