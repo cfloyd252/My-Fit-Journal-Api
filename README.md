@@ -16,13 +16,13 @@ be able to log meals and create a list of custom exercise names.
 
 ## Endpoints
 
-* **PATH** /api/users
+#### PATH /api/users
 
 * **Method:**
 
   `GET` | `POST`
 
-* **PATH** /api/users
+#### PATH /api/users
 
 * **Method:**
 
