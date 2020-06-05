@@ -58,7 +58,16 @@ be able to log meals and create a list of custom exercise names.
 
   * **Code:** 200 <br />
     **Content:** <br />
-    `{ weight: [], water: [], exercise:[] }`     
+    `{ weight: [], water: [], exercise:[] }`    
+    
+* **Success Response:**
+  `POST`
+
+  * **Code:** 200 <br />
+    **Content:** <br />
+    `{ log_id: 13, user_id: 1, log_type: "water", quantity: 5, unit_of_measurement: ml, start_time: "2020-06-05T09:18:00.000Z" }`, <br />
+    `{log_id: 18, log_type:"weight", quanity:"188", start_time: "2020-05-29T09:37:00.000Z", unit_of_measurement: "lbs", user_id: 1}`, <br />
+    `{log_id: 20, log_type:"exercise", exercise_name:"Walk", start_time: "2020-05-31T17:04:00.000Z", end_time: "2020-05-31T17:04:00.000Z", calories: -100, user_id: 1}`, <br />
 
 ## Scripts
 
