@@ -24,14 +24,14 @@ function makeUsersArray() {
   ]
 }
 
-function makeLogsArray() {
+function makeEntriesObject() {
 
 }
 
 function makeMyFitAppFixtures() {
   const testUsers = makeUsersArray()
-  const testLogs = makeLogsArray()
-  return { testUsers, testLogs }
+  const testEntries = makeEntriesObject()
+  return { testUsers, testEntries }
 }
 
 function cleanTables(db) {

@@ -37,22 +37,17 @@ const serializeUser = user => ({
         return res.status(400).send({error: {message: 'Username already taken'}})
       }
     })
-    if(zip.length !== 5) {
+    if(name.length > 15) {
       return res.status(400).json({
-        error: 'Zip code must be 5 digits'
+        error: 'Name cannot exceed 15 characters'
       })
     }
-    if(name.length > 20) {
+    if(username.length > 15) {
       return res.status(400).json({
-        error: 'Name cannot exceed 20 characters'
+        error: 'User Name cannot exceed 15 characters'
       })
     }
-    if(username.length > 20) {
-      return res.status(400).json({
-        error: 'User Name cannot exceed 20 characters'
-      })
-    }
-    for (const field of ['name', 'username', 'password', 'email', 'zip', 'img_alt'])
+    for (const field of ['name', 'username', 'password'])
       if (!req.body[field])
         return res.status(400).json({
           error: `Missing '${field}' in request body`
@@ -78,11 +73,6 @@ const serializeUser = user => ({
         user_name: username,
         password: hashedPassword,
         name,
-        email, 
-        zip,
-        admin_status: false,
-        img_src,
-        img_alt,
       }
 
       const user = await UsersService.insertUser(
@@ -93,7 +83,7 @@ const serializeUser = user => ({
       res
         .status(201)
         .location(path.posix.join(req.originalUrl, `/${user.id}`))
-        .json(UsersService.serializeUser(user))
+        .json(serializeUser(user))
     } catch(error) {
       next(error)
     }
