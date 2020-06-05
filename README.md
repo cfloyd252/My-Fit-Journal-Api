@@ -26,15 +26,27 @@ be able to log meals and create a list of custom exercise names.
   `GET`
 
   * **Code:** 200 <br />
-    **Content:** `{ id : 1, name:Joe, username:fit.joe }`  
+    **Content:** `{ id : 1, name:Joe, user_name:fit.joe }`  
     
 * **Success Response:**
   `POST`
 
   * **Code:** 201 <br />
     **Content:** `{ id : 2, name:Jane, username:fit.jane }`     
+    
+* **Error Response:**
+  `POST`
 
-#### PATH /api/users
+  * **Code:** 400 <br />
+    **Content:** `{ error: Username already taken }`, <br />
+    { error: Name cannot exceed 15 characters }, <br />
+    { error: Username cannot exceed 15 characters }, <br />
+    { error: Password must be longer than 8 characters }, <br />
+    { error: Password must be less than 72 characters }, <br />
+    { error: Password must not start or end with empty spaces }, <br />
+    { error: Password must contain one upper case, lower case, number and special character }, <br />
+
+#### PATH /api/entries
 
 * **Method:**
 
