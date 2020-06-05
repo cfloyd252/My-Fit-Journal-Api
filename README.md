@@ -38,22 +38,27 @@ be able to log meals and create a list of custom exercise names.
   `POST`
 
   * **Code:** 400 <br />
-    **Content:** `{ error: Username already taken }`, <br />
-    { error: Name cannot exceed 15 characters }, <br />
-    { error: Username cannot exceed 15 characters }, <br />
-    { error: Password must be longer than 8 characters }, <br />
-    { error: Password must be less than 72 characters }, <br />
-    { error: Password must not start or end with empty spaces }, <br />
-    { error: Password must contain one upper case, lower case, number and special character }, <br />
+    **Content:** <br />
+    `{ error: 'Username already taken' }`, <br />
+    `{ error: 'Name cannot exceed 15 characters' }`, <br />
+    `{ error: 'Username cannot exceed 15 characters' }`, <br />
+    `{ error: 'Password must be longer than 8 characters' }`, <br />
+    `{ error: 'Password must be less than 72 characters' }`, <br />
+    `{ error: 'Password must not start or end with empty spaces' }`, <br />
+    `{ error: 'Password must contain one upper case, lower case, number and special character' }`, <br />
 
 #### PATH /api/entries
 
 * **Method:**
 
   `GET` | `POST`
+  
+* **Success Response:**
+  `GET`
 
-Users Endpoint ('/users'): Contains methods for getting and posting users.  
-Entries Endpoint ('/entries'): Contains methods for getting, posting, and deleting log entries.   
+  * **Code:** 200 <br />
+    **Content:** <br />
+    `{ weight: [], water: [], exercise:[] }`     
 
 ## Scripts
 
