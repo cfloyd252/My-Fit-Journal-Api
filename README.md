@@ -18,6 +18,15 @@ be able to log meals and create a list of custom exercise names.
 
 * **PATH** /api/users
 
+* **Method:**
+
+  `GET` | `POST`
+
+* **PATH** /api/users
+
+* **Method:**
+
+  `GET` | `POST`
 
 Users Endpoint ('/users'): Contains methods for getting and posting users.  
 Entries Endpoint ('/entries'): Contains methods for getting, posting, and deleting log entries.   
