@@ -21,6 +21,18 @@ be able to log meals and create a list of custom exercise names.
 * **Method:**
 
   `GET` | `POST`
+  
+* **Success Response:**
+  `GET`
+
+  * **Code:** 200 <br />
+    **Content:** `{ id : 1, name:Joe, username:fit.joe }`  
+    
+* **Success Response:**
+  `POST`
+
+  * **Code:** 201 <br />
+    **Content:** `{ id : 2, name:Jane, username:fit.jane }`     
 
 #### PATH /api/users
 
