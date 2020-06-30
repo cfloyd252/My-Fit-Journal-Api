@@ -93,8 +93,6 @@ logEntriesRouter
         })
       }
 
-      console.log(entry)
-
       res.status(204).end();
     } catch(error) {
       next(error)
