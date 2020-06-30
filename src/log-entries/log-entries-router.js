@@ -64,11 +64,41 @@ logEntriesRouter
       const user_id = req.user.id
       const newEntry = { exercise_name, quanity, unit_of_measurement, start_time, end_time, calories, user_id, log_type };
       
-      const newLog = await LogEntriesService.insertEntry(req.app.get('db'), newEntry, log_type)
+      const newLog = await LogEntriesService.insertEntry(
+        req.app.get('db'), 
+        newEntry, 
+        log_type
+      )
+
       res.status(201).json(serializeEntry(newLog))
     } catch(error) {
       next(error)
     }
   });
+
+logEntriesRouter
+  .route('/:logId')
+  .all(requireAuth)
+  .delete(async(req, res, next) => {
+    try {
+      const { logId } = req.params
+      const entry = await LogEntriesService.deleteEntry(
+        req.app.get('db'), 
+        logId
+      )
+
+      if(!entry) {
+        res.status(400).json({
+          error: { message: 'Post does not exist' },
+        })
+      }
+
+      console.log(entry)
+
+      res.status(204).end();
+    } catch(error) {
+      next(error)
+    }
+  })
 
 module.exports = logEntriesRouter;

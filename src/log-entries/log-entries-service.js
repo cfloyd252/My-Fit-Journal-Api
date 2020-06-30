@@ -92,6 +92,13 @@ const LogEntriesService = {
         });
     }
   },
+
+  deleteEntry(db, logId) {
+    return db
+      .from('log_entries')
+      .where({'log_id': logId})
+      .delete();
+  }
 };
 
 module.exports = LogEntriesService;
