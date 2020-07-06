@@ -79,7 +79,7 @@ logEntriesRouter
 logEntriesRouter
   .route('/:logId')
   .all(requireAuth)
-  .delete(async(req, res, next) => {
+  .delete(jsonBodyParser, async(req, res, next) => {
     try {
       const { logId } = req.params
       const entry = await LogEntriesService.deleteEntry(
